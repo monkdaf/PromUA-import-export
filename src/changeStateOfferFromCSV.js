@@ -70,13 +70,15 @@ fs.readFile(fileIn, optReadFile, (err, data) => {
     for (const row of arrRowWithData) {
       const columns = row.split('","');
       const params = columns.splice(startParam);
-      if (!hasParamState(params)) {
+      if ((columns[0].toString() !== '"') &&
+        (columns[0].toString() !== '"0000') &&
+        !hasParamState(params)) {
         const state = isNew(columns[0]) ? 'Новое' : 'Б/У';
         const fullState = `"Состояние","","${state}"`;
-        dataOut += `${row},${fullState}`;
-        console.log(`${columns[0]} : ${fullState}`);
+        dataOut += `${row},${fullState}\r\n`;
+        console.log(`<${columns[0].toString()}> : ${fullState}`);
       }
-      dataOut += '\r\n';
+      // dataOut += '\r\n';
     }
   }
   fs.writeFile(fileOut, dataOut);
