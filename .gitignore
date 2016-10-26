@@ -1,3 +1,6 @@
+# data files from prom.ua
+*.csv
+*.xml
 # Logs
 logs
 *.log
